@@ -3,16 +3,16 @@ import Post from "../../../../../models/post";
 import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
-    const { id } = params
-    await connectMongoDB()
-    const post = await Post.findOne({ _id: id })
+    const { id } = params;
+    await connectMongoDB();
+    const post = await Post.findOne({ _id: id });
     return NextResponse.json({ post }, { status: 200 })
 }
 
 export async function PUT(req, { params }) {
-    const { id } = params
-    const { newTitle: title, newImg: img, newContent: content } = await req.json() // newContent: content เปลี่ยนชื่อ ให้ตรงกับ ฟิลด์ ใน ฐานข้อมล
-    await connectMongoDB()
-    await Post.findByIdAndUpdate(id, { title, img, content })
+    const { id } = params;
+    const { newTitle: title, newImg: img, newContent: content } = await req.json();
+    await connectMongoDB();
+    await Post.findByIdAndUpdate(id, { title, img, content });
     return NextResponse.json({ message: "Post updated" }, { status: 200 })
 }
